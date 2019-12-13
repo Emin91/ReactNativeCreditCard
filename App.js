@@ -1,10 +1,22 @@
 import React, {Component} from 'react'
-import { StyleSheet, View, TouchableOpacity, Image, Text, TouchableWithoutFeedback, Animated} from 'react-native'
+import { StyleSheet, View, Image, Text, TouchableWithoutFeedback, Animated, TextInput} from 'react-native'
 
 export default class App extends Component{
 
-  state = {
-    animatePress: new Animated.Value(1)
+  constructor(props){
+    super(props)
+    this.state = {
+      animatePress: new Animated.Value(1),
+      value: ""
+    }
+    this.handleChangeText = this.handleChangeText.bind(this)
+  }
+
+  handleChangeText(newText) {
+    this.setState({
+      value: newText
+    })
+    console.log('Value is' + this.state.value)
   }
 
   animateIn(){
@@ -22,11 +34,29 @@ export default class App extends Component{
   render(){
     return(
       <View style={styles.container}>
+        <View style={{flex: 1, backgroundColor: '#124563'}}>
+        </View>
+          <TextInput style={{backgroundColor: '#856987', width: '100%', height: 50}}
+              defaultValue={this.state.value}
+              onChangeText={this.handleChangeText}
+              placeholder={'Hello'}
+              placeholderTextColor={'#fff'}
+              autoCapitalize="characters"
+              maxLength={20}
+          >
+          </TextInput>
+          <TextInput style={{backgroundColor: '#458569', width: '100%', height: 50}}
+              defaultValue={this.state.value}
+              onChangeText={this.handleChangeText}
+              autoCapitalize="characters"
+              maxLength={20}
+          >
+          </TextInput>
         <TouchableWithoutFeedback 
           onPressIn={()=>this.animateIn()}
           onPressOut={()=>this.animateOut()}
           style={styles.TouchableView}>
-          <Animated.View style={{backgroundColor: '#456987', width: '95%', height: 250, borderRadius: 12,
+          <Animated.View style={{backgroundColor: '#456987', width: '95%', height: 250, borderRadius: 18,
             transform: [
               {
                 scale:this.state.animatePress
@@ -38,7 +68,7 @@ export default class App extends Component{
             <Text style={styles.bankName}>My Bank</Text>
             <Text style={styles.num}>1234  5678  9876  5432</Text>
             <Text style={styles.numSub}>1234</Text>
-            <Text style={styles.cardName}>MR.EMIN ZEYNALOV</Text>
+            <Text style={styles.cardName}>EMIN ZEYNALOV</Text>
           </View>
           <View style={styles.dateView}>
             <Text style={styles.dateViewMonth}>MONTH/YEAR</Text>
@@ -64,7 +94,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: '95%',
     height: 250,
-    borderRadius: 10,
+    borderRadius: 18,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -83,7 +113,8 @@ const styles = StyleSheet.create({
     marginTop: 65,
   },
   bankName: {
-    paddingLeft: 200,
+    paddingLeft: 150,
+    paddingRight: 20,
     paddingTop: 12,
     fontWeight: 'bold',
     fontSize: 38,
@@ -104,6 +135,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   cardName: {
+    textTransform: 'uppercase',
     fontFamily: "cred",
     fontSize: 25,
     color: '#fff',
