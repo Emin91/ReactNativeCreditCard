@@ -1,5 +1,6 @@
 package com.cardview;
 
+import com.RNTextInputMask.RNTextInputMaskPackage;
 import com.facebook.react.ReactActivity;
 
 public class MainActivity extends ReactActivity {

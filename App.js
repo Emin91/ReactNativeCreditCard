@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { StyleSheet, View, Image, Text, TouchableWithoutFeedback, Animated, TextInput} from 'react-native'
+import { StyleSheet, View, Image, Text, TouchableWithoutFeedback, Animated, TextInput, ScrollView} from 'react-native'
+import TextInputMask from 'react-native-text-input-mask'
 
 export default class App extends Component{
 
@@ -34,24 +35,7 @@ export default class App extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <View style={{flex: 1, backgroundColor: '#124563'}}>
-        </View>
-          <TextInput style={{backgroundColor: '#856987', width: '100%', height: 50}}
-              defaultValue={this.state.value}
-              onChangeText={this.handleChangeText}
-              placeholder={'Hello'}
-              placeholderTextColor={'#fff'}
-              autoCapitalize="characters"
-              maxLength={20}
-          >
-          </TextInput>
-          <TextInput style={{backgroundColor: '#458569', width: '100%', height: 50}}
-              defaultValue={this.state.value}
-              onChangeText={this.handleChangeText}
-              autoCapitalize="characters"
-              maxLength={20}
-          >
-          </TextInput>
+        <View style={{flex: 2, backgroundColor: '#141414', justifyContent: 'center', alignItems: 'center',}}>
         <TouchableWithoutFeedback 
           onPressIn={()=>this.animateIn()}
           onPressOut={()=>this.animateOut()}
@@ -65,19 +49,55 @@ export default class App extends Component{
           <Image source={require('./assets/image/bg2.jpg')} resizeMode="stretch" style={{width: '100%', height: '100%', borderRadius: 8,}}></Image>
           <Image source={require('./assets/image/chip.png')} style={styles.img}></Image>
           <View style={styles.textView}>
-            <Text style={styles.bankName}>My Bank</Text>
-            <Text style={styles.num}>1234  5678  9876  5432</Text>
-            <Text style={styles.numSub}>1234</Text>
-            <Text style={styles.cardName}>EMIN ZEYNALOV</Text>
+          <TextInputMask 
+              style={styles.bankName}
+              placeholder={'My Bank Name'}
+              placeholderTextColor={'#fff'}
+              autoCapitalize={'words'}
+              autoCorrect={false}
+              maxLength={16}
+          ></TextInputMask>
+          <TextInputMask 
+              style={styles.num}
+              placeholder={'1234  5678  9876  5432'}
+              placeholderTextColor={'#fff'}
+              refInput={ref => { this.input = ref }}
+              keyboardType="numeric"
+              onChangeText={this.handleChangeText}
+              mask={"[0000]  [0000]  [0000]  [0000]"}
+            ></TextInputMask>
+            <TextInputMask
+              style={styles.numSub}
+              placeholder={'1234'}
+              placeholderTextColor={'#fff'}
+              keyboardType="numeric"
+              maxLength={4}
+              >{this.state.value}
+              </TextInputMask>
+            <TextInputMask 
+              style={styles.cardName}
+              placeholder={'EMIN ZEYNALOV'}
+              placeholderTextColor={'#fff'}
+              autoCapitalize={'characters'}
+              maxLength={22}
+              ></TextInputMask>
           </View>
           <View style={styles.dateView}>
             <Text style={styles.dateViewMonth}>MONTH/YEAR</Text>
-            <Text style={styles.dateViewDate}>12/99</Text>
+            <TextInputMask
+              style={styles.dateViewDate}
+              placeholder={'12/99'}
+              placeholderTextColor={'#fff'}
+              maxLength={5}
+              keyboardType="numeric"
+              mask={"[00]/[00]"}
+              ></TextInputMask>
             <Text style={styles.dateViewValid}>VALID</Text>
             <Text style={styles.dateViewThru}>THRU</Text>
           </View>
           </Animated.View>
         </TouchableWithoutFeedback>
+        </View>
       </View>
     )
   }
@@ -86,9 +106,6 @@ export default class App extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#141414',
   },
   TouchableView: {
     backgroundColor: '#fff',
@@ -113,24 +130,24 @@ const styles = StyleSheet.create({
     marginTop: 65,
   },
   bankName: {
-    paddingLeft: 150,
-    paddingRight: 20,
-    paddingTop: 12,
+    textAlign: 'right',
+    marginLeft: 20,
+    marginRight: 1,
     fontWeight: 'bold',
     fontSize: 38,
     color: '#fff',
   },
   num: {
     fontFamily: "cred",
-    paddingTop: 73,
-    paddingLeft: 35,
+    marginTop: 50,
+    marginLeft: 35,
     fontSize: 18,
     color: '#fff',
   },
   numSub: {
     fontFamily: "cred",
-    paddingTop: 6,
-    paddingLeft: 35,
+    marginTop: -30,
+    marginLeft: 35,
     fontSize: 10,
     color: '#fff',
   },
@@ -139,8 +156,8 @@ const styles = StyleSheet.create({
     fontFamily: "cred",
     fontSize: 25,
     color: '#fff',
-    paddingTop: 22,
-    paddingLeft: 35,
+    marginTop: 5,
+    marginLeft: 35,
   },
   textView: {
     position: 'absolute',
@@ -164,8 +181,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   dateViewDate: {
+    width: 90,
     position: 'absolute',
-    marginTop: 15,
     marginLeft: 45,
     fontSize: 15,
     color: '#fff',
