@@ -1,0 +1,28 @@
+import React, {Component} from 'react'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
+
+export default class App extends Component{
+  render(){
+    return(
+      <View style={styles.container}>
+        <TouchableOpacity style={{
+          backgroundColor: '#fff', width: '90%', height: 250, borderRadius: 10, shadowColor: "#000",
+          shadowOffset: { width: 0, height: 1, }, shadowRadius: 2.22, shadowOpacity: 0.8, elevation: 5
+        }}>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 30,
+    color: '#fff',
+  }
+})
